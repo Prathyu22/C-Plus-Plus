@@ -1,58 +1,81 @@
-//https://www.hackerrank.com/challenges/classes-objects/problem
+//https://www.hackerrank.com/challenges/c-tutorial-class/problem?isFullScreen=true
 
-#include <cmath>
-#include <cstdio>
-#include <vector>
 #include <iostream>
-#include <algorithm>
-#include <cassert>
+#include <sstream>
 using namespace std;
 
-// Write your Student class here
+/*
+Enter code for class Student here.
+Read statement for specification.
+*/
 class Student
 {
     public:
-    int arr[5];
-    void input()
+    int age1;
+    int std;
+    string f_name;
+    string l_name;
+    void set_age(int age)
     {
-        for(int i =0;i<5;i++)
-        cin>>arr[i];
+        age1 = age;
     }
-    int calculateTotalScore()
+    void set_standard(int standard)
     {
-        int sum =0;
-        for(int i =0;i<5;i++)
-        {
-            sum += arr[i];
-        }
-        return sum;
+        std = standard;
     }
-};
+    void set_first_name(string first_name)
+    {
+        f_name = first_name;
+    }
+    void set_last_name(string last_name)
+    {
+        l_name = last_name;
+    }
     
+    int get_age()
+    {
+        return age1;
+    }
+    int get_standard()
+    {
+        return std;
+    }
+    string get_last_name()
+    {
+        return l_name;
+    }
+    string get_first_name()
+    {
+        return f_name;
+    }
+    string to_string()
+    {
+        stringstream a;
+        a<<age1;
+        stringstream ss;
+        ss<<std;
+        return a.str()+","+f_name+","+l_name+","+ss.str();
+    }
+    
+};
 
 int main() {
-    int n; // number of students
-    cin >> n;
-    Student *s = new Student[n]; // an array of n students
+    int age, standard;
+    string first_name, last_name;
     
-    for(int i = 0; i < n; i++){
-        s[i].input();
-    }
-
-    // calculate kristen's score
-    int kristen_score = s[0].calculateTotalScore();
-
-    // determine how many students scored higher than kristen
-    int count = 0; 
-    for(int i = 1; i < n; i++){
-        int total = s[i].calculateTotalScore();
-        if(total > kristen_score){
-            count++;
-        }
-    }
-
-    // print result
-    cout << count;
+    cin >> age >> first_name >> last_name >> standard;
+    
+    Student st;
+    st.set_age(age);
+    st.set_standard(standard);
+    st.set_first_name(first_name);
+    st.set_last_name(last_name);
+    
+    cout << st.get_age() << "\n";
+    cout << st.get_last_name() << ", " << st.get_first_name() << "\n";
+    cout << st.get_standard() << "\n";
+    cout << "\n";
+    cout << st.to_string();
     
     return 0;
 }
