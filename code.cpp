@@ -1,42 +1,30 @@
-//https://www.hackerrank.com/challenges/cpp-exception-handling/
+//https://www.hackerearth.com/challenges/competitive/mock-online-coding-assessments-c-easy/algorithm/caesars-cipher-2-b434de35/
 
-#include <iostream>
-#include <stdexcept>
-
+#include <bits/stdc++.h>
 using namespace std;
-
-int largest_proper_divisor(int n) {
-    if (n == 0) {
-        throw invalid_argument("largest proper divisor is not defined for n=0");
-    }
-    if (n == 1) {
-        throw invalid_argument("largest proper divisor is not defined for n=1");
-    }
-    for (int i = n/2; i >= 1; --i) {
-        if (n % i == 0) {
-            return i;
-        }
-    }
-    return -1; // will never happen
-}
-
-void process_input(int n) {
-    try{
-        int d = largest_proper_divisor(n);
-        cout << "result=" << d << endl;
-    }
-    catch(invalid_argument i)
-    {
-        cout<<i.what()<<endl;
-    }
-    cout<<"returning control flow to caller"<<endl;
-  
-}
-
-
 int main() {
-    int n;
-    cin >> n;
-    process_input(n);
-    return 0;
+	int q;
+	cin >> q; //Reading no. of queries.
+	while(q-- >0)
+	{
+		int ans = -1;
+		bool flag = false;
+		string s,t;
+		cin>>s>>t;
+
+		for(int i=0; i<int(s.size()); i++)
+		{
+			int diff = (t[i] - s[i] + 26) % 26;
+			if(ans == -1)  ans = diff;
+			if(diff == ans)  continue;
+			else
+			{
+				flag = true;
+				break;
+			}
+		}
+		if(flag) cout<<"-1"<<endl;
+		else cout<<ans<<endl;
+	}
+	return 0;
 }
