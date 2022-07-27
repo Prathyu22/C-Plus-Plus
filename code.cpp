@@ -1,43 +1,62 @@
 //https://www.hackerrank.com/challenges/operator-overloading/
 
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
+//Operator Overloading
+
+#include<iostream>
+
 using namespace std;
 
+class Complex
+{
+public:
+    int a,b;
+    void input(string s)
+    {
+        int v1=0;
+        int i=0;
+        while(s[i]!='+')
+        {
+            v1=v1*10+s[i]-'0';
+            i++;
+        }
+        while(s[i]==' ' || s[i]=='+'||s[i]=='i')
+        {
+            i++;
+        }
+        int v2=0;
+        while(i<s.length())
+        {
+            v2=v2*10+s[i]-'0';
+            i++;
+        }
+        a=v1;
+        b=v2;
+    }
+};
 
-int main() {
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
-    int n;
-    cin>>n;
-    vector<int> v;
-    for(int i=0; i<n; i++)
-    {
-        int num;
-        cin>>num;
-        v.push_back(num);
-    }
-    
-    int q;
-    cin>>q;
-    while(q--)
-    {
-        int n1;
-        cin>>n1;
-        vector<int>::iterator iter;
-        iter = lower_bound(v.begin(), v.end(), n1);
-        if( *iter == n1)
-        {
-            cout<<"Yes"<<" "<<iter - v.begin() +1<<endl;
-        }
-        else 
-        {
-            cout<<"No"<<" "<<iter - v.begin() +1<<endl;
-        }
-        
-        
-    }
-    return 0;
+//Overload operators + and << for the class complex
+//+ should add two complex numbers as (a+ib) + (c+id) = (a+c) + i(b+d)
+//<< should print a complex number in the format "a+ib"
+
+Complex operator +(const Complex &x, const Complex &y) {
+    Complex z;
+    z.a = x.a + y.a; z.b = x.b + y.b;
+    return z;
+}
+//<< should print a complex number in the format "a+ib"
+std::ostream &operator <<(std::ostream& os, const Complex &z) {
+    os << z.a << "+i" << z.b;
+    return os;
+}
+
+int main()
+{
+    Complex x,y;
+    string s1,s2;
+    cin>>s1;
+    cin>>s2;
+    x.input(s1);
+    y.input(s2);
+    Complex z=x+y;
+    cout<<z<<endl;
 }
