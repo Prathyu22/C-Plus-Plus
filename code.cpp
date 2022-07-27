@@ -1,81 +1,42 @@
-//https://www.hackerrank.com/challenges/c-tutorial-class/problem?isFullScreen=true
+//https://www.hackerrank.com/challenges/cpp-exception-handling/
 
 #include <iostream>
-#include <sstream>
+#include <stdexcept>
+
 using namespace std;
 
-/*
-Enter code for class Student here.
-Read statement for specification.
-*/
-class Student
-{
-    public:
-    int age1;
-    int std;
-    string f_name;
-    string l_name;
-    void set_age(int age)
-    {
-        age1 = age;
+int largest_proper_divisor(int n) {
+    if (n == 0) {
+        throw invalid_argument("largest proper divisor is not defined for n=0");
     }
-    void set_standard(int standard)
-    {
-        std = standard;
+    if (n == 1) {
+        throw invalid_argument("largest proper divisor is not defined for n=1");
     }
-    void set_first_name(string first_name)
-    {
-        f_name = first_name;
+    for (int i = n/2; i >= 1; --i) {
+        if (n % i == 0) {
+            return i;
+        }
     }
-    void set_last_name(string last_name)
-    {
-        l_name = last_name;
+    return -1; // will never happen
+}
+
+void process_input(int n) {
+    try{
+        int d = largest_proper_divisor(n);
+        cout << "result=" << d << endl;
     }
-    
-    int get_age()
+    catch(invalid_argument i)
     {
-        return age1;
+        cout<<i.what()<<endl;
     }
-    int get_standard()
-    {
-        return std;
-    }
-    string get_last_name()
-    {
-        return l_name;
-    }
-    string get_first_name()
-    {
-        return f_name;
-    }
-    string to_string()
-    {
-        stringstream a;
-        a<<age1;
-        stringstream ss;
-        ss<<std;
-        return a.str()+","+f_name+","+l_name+","+ss.str();
-    }
-    
-};
+    cout<<"returning control flow to caller"<<endl;
+  
+}
+
 
 int main() {
-    int age, standard;
-    string first_name, last_name;
-    
-    cin >> age >> first_name >> last_name >> standard;
-    
-    Student st;
-    st.set_age(age);
-    st.set_standard(standard);
-    st.set_first_name(first_name);
-    st.set_last_name(last_name);
-    
-    cout << st.get_age() << "\n";
-    cout << st.get_last_name() << ", " << st.get_first_name() << "\n";
-    cout << st.get_standard() << "\n";
-    cout << "\n";
-    cout << st.to_string();
-    
+    int n;
+    cin >> n;
+    process_input(n);
     return 0;
 }
