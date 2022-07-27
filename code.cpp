@@ -1,30 +1,56 @@
-//https://www.hackerearth.com/challenges/competitive/mock-online-coding-assessments-c-easy/algorithm/caesars-cipher-2-b434de35/
+//https://www.hackerrank.com/challenges/inherited-code/problem?isFullScreen=true
 
-#include <bits/stdc++.h>
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <exception>
 using namespace std;
-int main() {
-	int q;
-	cin >> q; //Reading no. of queries.
-	while(q-- >0)
-	{
-		int ans = -1;
-		bool flag = false;
-		string s,t;
-		cin>>s>>t;
 
-		for(int i=0; i<int(s.size()); i++)
-		{
-			int diff = (t[i] - s[i] + 26) % 26;
-			if(ans == -1)  ans = diff;
-			if(diff == ans)  continue;
-			else
-			{
-				flag = true;
-				break;
-			}
+/* Define the exception here */
+class BadLengthException{
+    private:
+    int n;
+    public:
+    BadLengthException(int n1)
+    {
+        n = n1;
+    }
+    int what()
+    {
+        return n;
+    }
+};
+
+bool checkUsername(string username) {
+	bool isValid = true;
+	int n = username.length();
+	if(n < 5) {
+		throw BadLengthException(n);
+	}
+	for(int i = 0; i < n-1; i++) {
+		if(username[i] == 'w' && username[i+1] == 'w') {
+			isValid = false;
 		}
-		if(flag) cout<<"-1"<<endl;
-		else cout<<ans<<endl;
+	}
+	return isValid;
+}
+
+int main() {
+	int T; cin >> T;
+	while(T--) {
+		string username;
+		cin >> username;
+		try {
+			bool isValid = checkUsername(username);
+			if(isValid) {
+				cout << "Valid" << '\n';
+			} else {
+				cout << "Invalid" << '\n';
+			}
+		} catch (BadLengthException e) {
+			cout << "Too short: " << e.what() << '\n';
+		}
 	}
 	return 0;
 }
