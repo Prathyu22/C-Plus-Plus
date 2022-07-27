@@ -1,125 +1,51 @@
-//https://www.hackerrank.com/challenges/accessing-inherited-functions
-
-#include<iostream>
-
+//https://www.hackerrank.com/challenges/c-class-templates/problem
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <cassert>
 using namespace std;
 
-class A
-{
+/*Write the class AddElements here*/
+template <class T>
+class AddElements{
+    T x;
     public:
-        A(){
-            callA = 0;
-        }
-    private:
-        int callA;
-        void inc(){
-            callA++;
-        }
-
-    protected:
-        void func(int & a)
-        {
-            a = a * 2;
-            inc();
-        }
-    public:
-        int getA(){
-            return callA;
-        }
+        AddElements(T a){x=a;}
+        T add(T b){return x+b;}
 };
-
-class B
-{
+template<>
+class AddElements<string>{
+    string x;
     public:
-        B(){
-            callB = 0;
-        }
-    private:
-        int callB;
-        void inc(){
-            callB++;
-        }
-    protected:
-        void func(int & a)
-        {
-            a = a * 3;
-            inc();
-        }
-    public:
-        int getB(){
-            return callB;
-        }
+        AddElements(string a){x=a;}
+        string concatenate(string b){return x+b;}
 };
-
-class C
-{
-    public:
-        C(){
-            callC = 0;
-        }
-    private:
-        int callC;
-        void inc(){
-            callC++;
-        }
-    protected:
-        void func(int & a)
-        {
-            a = a * 5;
-            inc();
-        }
-    public:
-        int getC(){
-            return callC;
-        }
-};
-
-class D : public A, public B, public C
-{
-
-	int val;
-	public:
-		//Initially val is 1
-		 D()
-		 {
-		 	val = 1;
-		 }
-
-
-		 //Implement this function
-		 void update_val(int new_val)
-		 {
-             while(new_val%2 == 0) {
-                A::func(val);
-                new_val /= 2;
-            }
-            while(new_val%3 == 0) {
-                B::func(val);
-                new_val /= 3;
-            }
-            while(new_val%5 == 0) {
-                C::func(val);
-                new_val /= 5;
-            }			
-		 }
-		 //For Checking Purpose
-		 void check(int); //Do not delete this line.
-};
-
-
-
-void D::check(int new_val)
-{
-    update_val(new_val);
-    cout << "Value = " << val << endl << "A's func called " << getA() << " times " << endl << "B's func called " << getB() << " times" << endl << "C's func called " << getC() << " times" << endl;
-}
-
-
-int main()
-{
-    D d;
-    int new_val;
-    cin >> new_val;
-    d.check(new_val);
-
+int main () {
+  int n,i;
+  cin >> n;
+  for(i=0;i<n;i++) {
+    string type;
+    cin >> type;
+    if(type=="float") {
+        double element1,element2;
+        cin >> element1 >> element2;
+        AddElements<double> myfloat (element1);
+        cout << myfloat.add(element2) << endl;
+    }
+    else if(type == "int") {
+        int element1, element2;
+        cin >> element1 >> element2;
+        AddElements<int> myint (element1);
+        cout << myint.add(element2) << endl;
+    }
+    else if(type == "string") {
+        string element1, element2;
+        cin >> element1 >> element2;
+        AddElements<string> mystring (element1);
+        cout << mystring.concatenate(element2) << endl;
+    }
+  }
+  return 0;
 }
