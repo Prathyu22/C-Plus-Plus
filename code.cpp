@@ -1,51 +1,64 @@
-//https://www.hackerrank.com/challenges/c-class-templates/problem
+//https://www.hackerrank.com/challenges/operator-overloading/
+
 #include <cmath>
 #include <cstdio>
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <cassert>
 using namespace std;
 
-/*Write the class AddElements here*/
-template <class T>
-class AddElements{
-    T x;
+class Matrix{
     public:
-        AddElements(T a){x=a;}
-        T add(T b){return x+b;}
+    vector<vector<int>> a;
+    
+    //The best way to pass in "read-only" paremeters is by const reference (&).
+    Matrix operator + (const Matrix &y)
+    {
+        for(int i=0; i<y.a.size(); i++)
+        {
+            for(int j=0; j<y.a[0].size(); j++)
+            {
+                this->a[i][j] = this->a[i][j] + y.a[i][j];
+            }
+        }
+        return *this;
+    }    
 };
-template<>
-class AddElements<string>{
-    string x;
-    public:
-        AddElements(string a){x=a;}
-        string concatenate(string b){return x+b;}
-};
+
 int main () {
-  int n,i;
-  cin >> n;
-  for(i=0;i<n;i++) {
-    string type;
-    cin >> type;
-    if(type=="float") {
-        double element1,element2;
-        cin >> element1 >> element2;
-        AddElements<double> myfloat (element1);
-        cout << myfloat.add(element2) << endl;
-    }
-    else if(type == "int") {
-        int element1, element2;
-        cin >> element1 >> element2;
-        AddElements<int> myint (element1);
-        cout << myint.add(element2) << endl;
-    }
-    else if(type == "string") {
-        string element1, element2;
-        cin >> element1 >> element2;
-        AddElements<string> mystring (element1);
-        cout << mystring.concatenate(element2) << endl;
-    }
-  }
-  return 0;
+   int cases,k;
+   cin >> cases;
+   for(k=0;k<cases;k++) {
+      Matrix x;
+      Matrix y;
+      Matrix result;
+      int n,m,i,j;
+      cin >> n >> m;
+      for(i=0;i<n;i++) {
+         vector<int> b;
+         int num;
+         for(j=0;j<m;j++) {
+            cin >> num;
+            b.push_back(num);
+         }
+         x.a.push_back(b);
+      }
+      for(i=0;i<n;i++) {
+         vector<int> b;
+         int num;
+         for(j=0;j<m;j++) {
+            cin >> num;
+            b.push_back(num);
+         }
+         y.a.push_back(b);
+      }
+      result = x+y;
+      for(i=0;i<n;i++) {
+         for(j=0;j<m;j++) {
+            cout << result.a[i][j] << " ";
+         }
+         cout << endl;
+      }
+   }  
+   return 0;
 }
