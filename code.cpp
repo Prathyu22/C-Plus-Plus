@@ -1,34 +1,54 @@
-//https://www.hackerearth.com/problem/algorithm/t-primes-c8a95cda/
+//https://www.hackerrank.com/challenges/cpp-maps/problem
 
+#include <cmath>
+#include <cstdio>
+#include <vector>
 #include <iostream>
+#include <set>
+#include <map>
+#include <algorithm>
 using namespace std;
 
-int main(){
-	long int size;
-	cin>>size;
-	long int num;
-	
-	for(int i=0; i<size; i++)
-	{
-		cin>>num;
-		int count = 1;
 
-		for(int j=2; j<=num; j++)
-		{
-			if(num % j == 0)
-			{
-				count++;
-				if(count > 3)
-				{
-					cout<<"NO"<<endl;
-					break;
-				}
-			}
-		}
-		if(count == 3)
-				cout<<"YES"<<endl;
-		else if(count < 3)
-				cout<<"NO"<<endl;
-	}
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int q, q_no;
+    string name;
+    int marks;
+    cin>>q_no;
+    map<string,int> m;
     
+    for(int i=0; i<q_no; i++)
+    {
+        cin>>q;
+        switch(q)
+        {
+            case 1:
+            cin>>name>>marks;
+            if(m.find(name) == m.end())
+            {
+                m.insert(make_pair(name,marks));
+            }
+            else
+            {
+                m[name] += marks;
+            }
+            break;
+            
+            case 2:
+            cin>>name;
+            m.erase(name);
+            break;
+            
+            case 3:
+            cin>>name;
+            
+            m.find(name)!=m.end() ? cout<<m.find(name)->second<<endl : cout<<"0"<<endl;
+            break;
+        }
+    }
+    return 0;
 }
+
+
+
