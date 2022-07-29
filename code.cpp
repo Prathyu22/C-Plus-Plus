@@ -1,62 +1,34 @@
-//https://www.hackerrank.com/challenges/operator-overloading/
+//https://www.hackerearth.com/problem/algorithm/t-primes-c8a95cda/
 
-//Operator Overloading
-
-#include<iostream>
-
+#include <iostream>
 using namespace std;
 
-class Complex
-{
-public:
-    int a,b;
-    void input(string s)
-    {
-        int v1=0;
-        int i=0;
-        while(s[i]!='+')
-        {
-            v1=v1*10+s[i]-'0';
-            i++;
-        }
-        while(s[i]==' ' || s[i]=='+'||s[i]=='i')
-        {
-            i++;
-        }
-        int v2=0;
-        while(i<s.length())
-        {
-            v2=v2*10+s[i]-'0';
-            i++;
-        }
-        a=v1;
-        b=v2;
-    }
-};
+int main(){
+	long int size;
+	cin>>size;
+	long int num;
+	
+	for(int i=0; i<size; i++)
+	{
+		cin>>num;
+		int count = 1;
 
-//Overload operators + and << for the class complex
-//+ should add two complex numbers as (a+ib) + (c+id) = (a+c) + i(b+d)
-//<< should print a complex number in the format "a+ib"
-
-Complex operator +(const Complex &x, const Complex &y) {
-    Complex z;
-    z.a = x.a + y.a; z.b = x.b + y.b;
-    return z;
-}
-//<< should print a complex number in the format "a+ib"
-std::ostream &operator <<(std::ostream& os, const Complex &z) {
-    os << z.a << "+i" << z.b;
-    return os;
-}
-
-int main()
-{
-    Complex x,y;
-    string s1,s2;
-    cin>>s1;
-    cin>>s2;
-    x.input(s1);
-    y.input(s2);
-    Complex z=x+y;
-    cout<<z<<endl;
+		for(int j=2; j<=num; j++)
+		{
+			if(num % j == 0)
+			{
+				count++;
+				if(count > 3)
+				{
+					cout<<"NO"<<endl;
+					break;
+				}
+			}
+		}
+		if(count == 3)
+				cout<<"YES"<<endl;
+		else if(count < 3)
+				cout<<"NO"<<endl;
+	}
+    
 }
