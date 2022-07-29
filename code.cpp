@@ -1,22 +1,20 @@
-//https://www.hackerrank.com/challenges/cpp-maps/problem
+//https://www.hackerrank.com/challenges/cpp-sets/
 
 #include <cmath>
 #include <cstdio>
 #include <vector>
 #include <iostream>
 #include <set>
-#include <map>
 #include <algorithm>
 using namespace std;
 
 
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
-    int q, q_no;
-    string name;
-    int marks;
+    int q,q_no;
     cin>>q_no;
-    map<string,int> m;
+    int num;
+    set<int> s;
     
     for(int i=0; i<q_no; i++)
     {
@@ -24,27 +22,21 @@ int main() {
         switch(q)
         {
             case 1:
-            cin>>name>>marks;
-            if(m.find(name) == m.end())
-            {
-                m.insert(make_pair(name,marks));
-            }
-            else
-            {
-                m[name] += marks;
-            }
-            break;
-            
+              cin>>num;
+              s.insert(num);
+              break;
             case 2:
-            cin>>name;
-            m.erase(name);
-            break;
-            
+              cin>>num;
+              if(s.find(num) != s.end())
+                s.erase(num);
+              break;
             case 3:
-            cin>>name;
-            
-            m.find(name)!=m.end() ? cout<<m.find(name)->second<<endl : cout<<"0"<<endl;
-            break;
+              cin>>num;
+              if(s.find(num) != s.end())
+                cout<<"Yes"<<endl;
+              else
+                cout<<"No"<<endl;
+              break;           
         }
     }
     return 0;
