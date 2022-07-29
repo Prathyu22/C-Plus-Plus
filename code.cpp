@@ -1,46 +1,34 @@
-//https://www.hackerrank.com/challenges/cpp-sets/
+//https://www.hackerrank.com/challenges/overloading-ostream-operator/problem
 
-#include <cmath>
-#include <cstdio>
-#include <vector>
 #include <iostream>
-#include <set>
-#include <algorithm>
+
 using namespace std;
+
+class Person {
+public:
+    Person(const string& first_name, const string& last_name) : first_name_(first_name), last_name_(last_name) {}
+    const string& get_first_name() const {
+      return first_name_;
+    }
+    const string& get_last_name() const {
+      return last_name_;
+    }
+private:
+    string first_name_;
+    string last_name_;
+};
+// Enter your code here.
+ostream& operator<<(ostream& os, const Person& pr)  
+{  
+    os <<"first_name=" <<pr.get_first_name() << ",last_name=" << pr.get_last_name();  
+    return os;  
+}  
 
 
 int main() {
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
-    int q,q_no;
-    cin>>q_no;
-    int num;
-    set<int> s;
-    
-    for(int i=0; i<q_no; i++)
-    {
-        cin>>q;
-        switch(q)
-        {
-            case 1:
-              cin>>num;
-              s.insert(num);
-              break;
-            case 2:
-              cin>>num;
-              if(s.find(num) != s.end())
-                s.erase(num);
-              break;
-            case 3:
-              cin>>num;
-              if(s.find(num) != s.end())
-                cout<<"Yes"<<endl;
-              else
-                cout<<"No"<<endl;
-              break;           
-        }
-    }
+    string first_name, last_name, event;
+    cin >> first_name >> last_name >> event;
+    auto p = Person(first_name, last_name);
+    cout << p << " " << event << endl;
     return 0;
 }
-
-
-
